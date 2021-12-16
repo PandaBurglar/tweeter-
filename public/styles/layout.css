@@ -14,7 +14,7 @@ html {
  * Global layout stuff
  */
  nav {
-  font-family: 'Bungee', cursive; /*applies to Tweeter logo in nav*/
+  font-family: 'Bungee', cursive, sans-serif; /*applies to Tweeter logo in nav*/
 }
 
 body {
