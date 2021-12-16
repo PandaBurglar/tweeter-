@@ -1,0 +1,17 @@
+body > header {
+  margin-top: 120px;
+  display: flex;
+  height: 400px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #6f64b7;
+background-image: url("https://www.transparenttextures.com/patterns/back-pattern.png");
+}
+
+header > div > h2 {
+  margin-top: 0px;
+  color: #ff9a8c;
+  font-weight: 400;
+}
