@@ -19,7 +19,7 @@ html {
 
 body {
   color: #545149;
-  background-color: #f4f1ec;
+  background-color: #ff7284;
   font-size: 24px;
   font-family: 'Source Sans Pro', sans-serif; /*applies to everything in the body*/
 }
@@ -27,3 +27,13 @@ body {
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
+
+ .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #ff7284; /* needs to be the same as <body> element*/
+}
