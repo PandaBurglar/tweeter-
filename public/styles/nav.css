@@ -1,0 +1,34 @@
+nav {  
+  display: flex; 
+  justify-content: space-between; /*space title and logo with space between them and centered*/
+  align-items: center;
+  height: 120px; 
+  background: #4056a1;
+  color: #ffffff;
+  padding: 1.5em;
+  position: fixed;
+  top: 0%;
+  z-index: 1;
+  width: 100%;
+}
+
+.logo {
+  font-family: "Bungee", sans-serif;  
+  font-size: 2em;
+}
+.writeATweet {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  font-size: 1em;
+  transition: 0.1s;
+  padding: 10px;
+}
+
+.arrow {
+  margin-top: 10px;
+  font-size: 20px;
+  color: red;
+}
