@@ -4,27 +4,56 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// appends an array of  tweets to the tweetsContainer section in the main
+
+//turns tweet objects into HTML formatted tweet articles
+const createTweetElement = function(data) {
+  let $tweet = $(`
+  <article class="tweet">
+  <header>
+    <div class="user">
+      <img
+        src="${data.user.avatars}"
+        alt="">
+      <p>${data.user.name}</p>
+    </div>
+    <h4>${data.user.handle}</h4>
+  </header>
+  <p>${data.content.text}</p>
+  <footer>
+    <span>${data.created_at}</span>
+    <div>
+      <i class="fas fa-flag"></i>
+      <i class="fas fa-retweet"></i>
+      <i class="fas fa-heart"></i>
+    </div>
+  </footer>
+</article>
+  `);
+  return $tweet;
+};
+
+// appends an array of tweets to the tweetsContainer section in the main
 const renderTweet = function(data) {
+  $('#tweetsContainer').empty();
   for (let tweet of data) {
-    let tweetTemp = createTweetElement(tweet);
     $('#tweetsContainer').append(createTweetElement(tweet));
   }
-}
+};
 
 const loadTweets = function() {
   $.ajax('/tweets', { method: 'GET' })
     .then((tweets) => {
-      console.log(tweets)
-      return tweets;
+      console.log("your page is grabbing the tweets from database")
+  
       //when we have the data from GET request, pass it through renderTweet
-      renderTweet(tweets);
+      renderTweet(tweets.reverse())
     })
     .catch((err) => {
       console.log("There was an ERROR ", err)
     })
 };
 
+//loads all tweets on page load
 loadTweets()
 
 // submit tweets via post request to /tweets
@@ -47,14 +76,16 @@ $(document).ready(function() {
       data: $(this).serialize()
     })
       .then(function(tweet) {
-        console.log('Tweet has successfully been sent to database');
-        $('#tweet-text').val('')
-        loadTweets()
+        $('#tweet-text').val('');
+      })
+      .then(() => {
+        loadTweets();
       })
       .catch((err) => {
         console.log('There was an error', err)
       })
   });
+
 }); 
 
  
