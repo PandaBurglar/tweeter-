@@ -6,7 +6,8 @@
 
 // using moment for unix to time since conversion
 const timeSincePostedTweet = (unix) => {
-  return (moment(unix).fromNow());
+  let updatedTime = moment(unix).fromNow();
+  return updatedTime;
 };
 
 // function to make tweet input area safe from html attacks on the page
@@ -75,10 +76,10 @@ $(document).ready(function() {
     event.preventDefault();
     
     if (!$(this).children().find('textarea').val()) {
-      return alert('You cannot post an empty tweet')
+      return $('.errors').text('Please enter a valid tweet').show();
     }
     if ($(this).children().find('textarea').val().length > 140) {
-      return alert("Your tweet exceeds the maximum characters")
+      return $('.errors').text('Your Tweet exceeds the maximum characters').show();
     }
 
 
