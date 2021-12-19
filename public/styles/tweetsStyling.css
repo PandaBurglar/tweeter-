@@ -62,8 +62,8 @@ article.tweet > footer {
   margin-left: 1em;
   margin-right: 1em;
 }
-article.tweet > footer > div > i {
-  color: #a53a7d;
+article.tweet > footer > div > i:hover {
+  color: #ff9a8c;
   margin-left: 3px;
   margin-right: 3px;
 }
