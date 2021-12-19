@@ -4,6 +4,17 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
+// using moment for unix to time since conversion
+const timeSincePostedTweet = (unix) => {
+  return (moment(unix).fromNow());
+};
+
+// function to make tweet input area safe from html attacks on the page
+const safe = function(str) {
+  let div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
 
 //turns tweet objects into HTML formatted tweet articles
 const createTweetElement = function(data) {
@@ -12,15 +23,15 @@ const createTweetElement = function(data) {
   <header>
     <div class="user">
       <img
-        src="${data.user.avatars}"
+        src="${safe(data.user.avatars)}"
         alt="">
-      <p>${data.user.name}</p>
+      <p>${safe(data.user.name)}</p>
     </div>
-    <h4>${data.user.handle}</h4>
+    <h4>${safe(data.user.handle)}</h4>
   </header>
-  <p>${data.content.text}</p>
+  <p>${safe(data.content.text)}</p>
   <footer>
-    <span>${data.created_at}</span>
+  <span>${safe(timeSincePostedTweet(data.created_at))}</span>
     <div>
       <i class="fas fa-flag"></i>
       <i class="fas fa-retweet"></i>
@@ -32,11 +43,12 @@ const createTweetElement = function(data) {
   return $tweet;
 };
 
+
 // appends an array of tweets to the tweetsContainer section in the main
 const renderTweet = function(data) {
   $('#tweetsContainer').empty();
   for (let tweet of data) {
-    $('#tweetsContainer').append(createTweetElement(tweet));
+    $('#tweetsContainer').prepend(createTweetElement(tweet));
   }
 };
 
@@ -46,7 +58,7 @@ const loadTweets = function() {
       console.log("your page is grabbing the tweets from database")
   
       //when we have the data from GET request, pass it through renderTweet
-      renderTweet(tweets.reverse())
+      renderTweet(tweets)
     })
     .catch((err) => {
       console.log("There was an ERROR ", err)
@@ -62,10 +74,10 @@ $(document).ready(function() {
   $('form.submitATweet').on('submit', function(event) {
     event.preventDefault();
     
-    if (!$('#tweet-text').val()) {
+    if (!$(this).children().find('textarea').val()) {
       return alert('You cannot post an empty tweet')
     }
-    if ($('#tweet-text').val().length > 140) {
+    if ($(this).children().find('textarea').val().length > 140) {
       return alert("Your tweet exceeds the maximum characters")
     }
 
@@ -76,14 +88,12 @@ $(document).ready(function() {
       data: $(this).serialize()
     })
       .then(function(tweet) {
-        $('#tweet-text').val('');
-      })
-      .then(() => {
         loadTweets();
       })
       .catch((err) => {
         console.log('There was an error', err)
       })
+      $(this).children().find('textarea').val('');
   });
 
 }); 
