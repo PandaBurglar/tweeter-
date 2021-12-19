@@ -32,7 +32,7 @@ const data = [
 ]
 
 const createTweetElement = function(data) {
-  return (`
+  let $tweet = $(`
   <article class="tweet">
   <header>
     <div class="user">
@@ -54,17 +54,35 @@ const createTweetElement = function(data) {
   </footer>
 </article>
   `);
+  return $tweet;
 };
 
+// appends an array of  tweets to the tweetsContainer section in the main
 const renderTweet = function(data) {
   for (let tweet of data) {
     let tweetTemp = createTweetElement(tweet);
-    $('#tweetsContainer').append(tweetTemp);
+    $('#tweetsContainer').append(createTweetElement(tweet));
   }
 }
 
 
 $(document).ready(function() {
+
+  $('form.submitATweet').on('submit', function(event) {
+    console.log('tweet submitted, sending to database');
+    event.preventDefault();
+    $.ajax('/tweets', {
+      method: 'POST',
+      data: $(this).serialize()
+    })
+      .then(function(tweet) {
+        console.log('Tweet has successfully been sent to database');
+        $('#tweet-text').val('')
+      })
+      .catch((err) => {
+        console.log('There was an error', err)
+      })
+  });
   renderTweet(data);
 
 }); 
