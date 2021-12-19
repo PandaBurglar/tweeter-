@@ -45,3 +45,10 @@
 .redCounter {
   color: red;
 }
+
+.errors {
+  display: none;
+  text-align: center;
+  color: red;
+  font-weight: 600;
+}
