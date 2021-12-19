@@ -40,6 +40,9 @@ body {
   background-color: #ff7284; /* needs to be the same as <body> element*/
 }
 
+
+/* ---- media queries ---- */
+
 @media (min-width: 1024px) {
   body {
     flex-direction: row;
@@ -47,11 +50,31 @@ body {
   }
   body > header {
     width: 33%;
-    margin: 140px 5rem;
+    margin: 220px 0px 0px 3rem;
   }
   .container {
     width: 55%;
     float: right;
-    margin: 120px 0px;
+    margin: 200px 3rem 0px 0px;
+  }
+}
+
+@media (max-width: 1024px) {
+  nav {
+    background-color: #313c8c;
+    background-image: url("https://www.transparenttextures.com/patterns/back-pattern.png");
+    height: 90px;
+  }
+  body > header {
+    margin-top: 90px;
+  }
+}
+
+@media (max-width: 570px) {
+  nav > span {
+    font-size: 2rem;
+  }
+  .writeATweet {
+    font-size: 1rem;
   }
 }
