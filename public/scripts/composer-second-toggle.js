@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  console.log('doc is ready')
+  console.log('doc is ready');
 
   $('form.submitATweet').on('submit', submitTweetPost)
 
