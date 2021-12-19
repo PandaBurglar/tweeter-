@@ -111,5 +111,9 @@ $(document).ready(function() {
 
   $('form.submitATweet').on('submit', submitTweetPost)
 
+  $('.writeATweet').on('click', function() {
+    $('.new-tweet').slideToggle(200);
+  });
+
 });
  
