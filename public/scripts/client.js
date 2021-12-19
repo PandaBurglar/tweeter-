@@ -76,12 +76,13 @@ $(document).ready(function() {
     event.preventDefault();
     
     if (!$(this).children().find('textarea').val()) {
-      return $('.errors').text('Please enter a valid tweet').show();
+      return $('.errors').text('Please enter a valid tweet').slideDown();
     }
     if ($(this).children().find('textarea').val().length > 140) {
-      return $('.errors').text('Your Tweet exceeds the maximum characters').show();
+      return $('.errors').text('Your Tweet exceeds the maximum characters').slideDown();
     }
 
+    $('.errors').text('').hide()
 
     console.log('tweet submitted, sending to database');
     $.ajax('/tweets', {
