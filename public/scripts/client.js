@@ -45,7 +45,7 @@ const createTweetElement = function(data) {
 };
 
 
-// appends an array of tweets to the tweetsContainer section in the main
+// prepends an array of tweets to the tweetsContainer section in the main
 const renderTweet = function(data) {
   $('#tweetsContainer').empty();
   for (let tweet of data) {
@@ -53,6 +53,7 @@ const renderTweet = function(data) {
   }
 };
 
+//Ajax get request to get data json, then async pass it though renderTweet
 const loadTweets = function() {
   $.ajax('/tweets', { method: 'GET' })
     .then((tweets) => {
@@ -66,39 +67,49 @@ const loadTweets = function() {
     })
 };
 
-//loads all tweets on page load
+///on submit callback function - handles ajax post requests on submit and form validation
+const submitTweetPost = function(event) {
+  event.preventDefault();
+
+  //form validation
+  $('.errorText').slideUp(400).text('');
+  if (!$(this).children().find('textarea').val()) {
+    return $('.errorText').text('Please enter a valid tweet').slideDown();
+  }
+     
+  if ($(this).children().find('textarea').val().length > 140) {
+    return $('.errors').text('Your Tweet exceeds the maximum characters').slideDown();
+  }
+  
+  // submitting tweets to database
+  console.log('tweet submitted, sending to database');
+  $.ajax('/tweets', {
+    method: 'POST',
+    data: $(this).serialize()
+  })
+    .then(function(tweet) {
+    //dynamically render new tweets after post request
+      loadTweets();
+    })
+    .catch((err) => {
+      console.log('There was an error', err)
+    })
+
+  // clear the text area after
+  $(this).children().find('textarea').val('');
+  $('.counter').text(140) //reset the counter to 140 after successful tweet
+
+}; 
+
+
+//loads initial tweets on page load
 loadTweets()
 
-// submit tweets via post request to /tweets
+
 $(document).ready(function() {
+  console.log('doc is ready')
 
-  $('.errors').slideUp(400).text('');
+  $('form.submitATweet').on('submit', submitTweetPost)
 
-  $('form.submitATweet').on('submit', function(event) {
-    event.preventDefault();
-    
-    if (!$(this).children().find('textarea').val()) {
-      return $('.errors').text('Please enter a valid tweet').slideDown();
-    }
-    if ($(this).children().find('textarea').val().length > 140) {
-      return $('.errors').text('Your Tweet exceeds the maximum characters').slideDown();
-    }
-
-
-    console.log('tweet submitted, sending to database');
-    $.ajax('/tweets', {
-      method: 'POST',
-      data: $(this).serialize()
-    })
-      .then(function(tweet) {
-        loadTweets();
-      })
-      .catch((err) => {
-        console.log('There was an error', err)
-      })
-      $(this).children().find('textarea').val('');
-  });
-
-}); 
-
+});
  
