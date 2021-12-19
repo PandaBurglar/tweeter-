@@ -27,6 +27,17 @@ nav {
   padding: 10px;
 }
 
+.writeTweet:hover {
+  margin-bottom: 10px;
+}
+.writeTweet:hover > .arrow {
+  margin-top: 5px;
+}
+.writeTweet:active {
+  margin-bottom: 0;
+}
+
+
 .arrow {
   margin-top: 10px;
   font-size: 20px;
