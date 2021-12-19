@@ -72,6 +72,8 @@ loadTweets()
 // submit tweets via post request to /tweets
 $(document).ready(function() {
 
+  $('.errors').slideUp(400).text('');
+
   $('form.submitATweet').on('submit', function(event) {
     event.preventDefault();
     
@@ -82,7 +84,6 @@ $(document).ready(function() {
       return $('.errors').text('Your Tweet exceeds the maximum characters').slideDown();
     }
 
-    $('.errors').text('').hide()
 
     console.log('tweet submitted, sending to database');
     $.ajax('/tweets', {
