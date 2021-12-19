@@ -5,8 +5,8 @@
  */
 
 // using moment for unix to time since conversion
-const timeSincePostedTweet = (unix) => {
-  let updatedTime = moment(unix).fromNow();
+const timeSincePostedTweet = (data) => {
+  let updatedTime = timeago.format(data.created_at);
   return updatedTime;
 };
 
@@ -32,7 +32,7 @@ const createTweetElement = function(data) {
   </header>
   <p>${safe(data.content.text)}</p>
   <footer>
-  <span>${safe(timeSincePostedTweet(data.created_at))}</span>
+  <span>${safe(timeSincePostedTweet(data))}</span>
     <div>
       <i class="fas fa-flag"></i>
       <i class="fas fa-retweet"></i>
