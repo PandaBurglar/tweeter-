@@ -1,3 +1,7 @@
+/*eslint-env jquery*/
+/*eslint-env browser*/
+/*global timeago*/
+
 /*
  * Client-side JS logic goes here
  * jQuery is already loaded
@@ -15,7 +19,7 @@ const safe = function(str) {
   let div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
-}
+};
 
 //turns tweet objects into HTML formatted tweet articles
 const createTweetElement = function(data) {
@@ -57,14 +61,14 @@ const renderTweet = function(data) {
 const loadTweets = function() {
   $.ajax('/tweets', { method: 'GET' })
     .then((tweets) => {
-      console.log("your page is grabbing the tweets from database")
+      console.log("your page is grabbing the tweets from database");
   
       //when we have the data from GET request, pass it through renderTweet
-      renderTweet(tweets)
+      renderTweet(tweets);
     })
     .catch((err) => {
-      console.log("There was an ERROR ", err)
-    })
+      console.log("There was an ERROR ", err);
+    });
 };
 
 ///on submit callback function - handles ajax post requests on submit and form validation
@@ -92,28 +96,24 @@ const submitTweetPost = function(event) {
       loadTweets();
     })
     .catch((err) => {
-      console.log('There was an error', err)
-    })
+      console.log('There was an error', err);
+    });
 
   // clear the text area after
   $(this).children().find('textarea').val('');
-  $('.counter').text(140) //reset the counter to 140 after successful tweet
+  $('.counter').text(140); //reset the counter to 140 after successful tweet
 
-}; 
+};
 
 
 //loads initial tweets on page load
-loadTweets()
+loadTweets();
 
 
 $(document).ready(function() {
-  console.log('doc is ready')
+  console.log('doc is ready');
 
-  $('form.submitATweet').on('submit', submitTweetPost)
-
-  $('.writeATweet').on('click', function() {
-    $('.new-tweet').slideToggle(200);
-  });
+  $('form.submitATweet').on('submit', submitTweetPost);
 
 });
  
