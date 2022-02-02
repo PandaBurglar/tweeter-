@@ -22,8 +22,8 @@ article.tweet > header {
 }
 
 article.tweet > header > h4 {
-  display: none;
-  color: #ff9a8c;
+  display: flex;
+  color: #4a55a5;
   font-size: 22px;
 }
 
