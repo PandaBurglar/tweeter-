@@ -51,7 +51,6 @@ const createTweetElement = function(data) {
 
 // prepends an array of tweets to the tweetsContainer section in the main
 const renderTweet = function(data) {
-  $('#tweetsContainer').empty();
   for (let tweet of data) {
     $('#tweetsContainer').prepend(createTweetElement(tweet));
   }
@@ -59,6 +58,7 @@ const renderTweet = function(data) {
 
 //Ajax get request to get data json, then async pass it though renderTweet
 const loadTweets = function() {
+  $('#tweetsContainer').empty();
   $.ajax('/tweets', { method: 'GET' })
     .then((tweets) => {
       console.log("your page is grabbing the tweets from database");
@@ -74,22 +74,27 @@ const loadTweets = function() {
 ///on submit callback function - handles ajax post requests on submit and form validation
 const submitTweetPost = function(event) {
   event.preventDefault();
-
+  console.log("form Submited")
   //form validation
-  $('.errorText').slideUp(400).text('');
-  if (!$(this).children().find('textarea').val()) {
-    return $('.errorText').text('Please enter a valid tweet').slideDown();
-  }
-     
-  if ($(this).children().find('textarea').val().length > 140) {
+  $('.errors').slideUp().text('');
+  let formElement = $(this).parent().find('form');
+  let input= formElement.find('textarea').val();
+  //form validation
+  console.log(formElement.serialize());
+  
+  
+  if (!input) {
+   $('.errors').text('Please enter a valid tweet').slideDown();
+   return;
+  } 
+  if (input.length > 140) {
     return $('.errors').text('Your Tweet exceeds the maximum characters').slideDown();
   }
   
   // submitting tweets to database
-  console.log('tweet submitted, sending to database');
   $.ajax('/tweets', {
     method: 'POST',
-    data: $(this).serialize()
+    data: formElement.serialize()
   })
     .then(function(tweet) {
     //dynamically render new tweets after post request
@@ -111,9 +116,9 @@ loadTweets();
 
 
 $(document).ready(function() {
-  console.log('doc is ready');
 
-  $('form.submitATweet').on('submit', submitTweetPost);
+
+  $('.tweetBottomside button').on('submit', submitTweetPost);
 
 });
  
