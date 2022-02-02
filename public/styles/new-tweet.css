@@ -19,21 +19,23 @@
   height: 40px;
   color: #291c3f;
   background-color: transparent;
+  align-items: center;
   border: none;
   resize: none;
   outline: none;
 }
 
-.tweetBottomSide {
+.tweetBottomside {
   font-family: "Bungee";
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end;
   margin-top: 10px;
   width: 100%;
 }
 
-.tweetBottomSide > button {
+.tweetBottomside > button {
   background-color: #4a55a5;
   font-size: 1em;
   color: #cc4779;
@@ -42,6 +44,11 @@
   width: 7rem;
 }
 
+.counter{
+  background: transparent;
+  font-size: 25px;
+  font-family: 'Bungee', cursive; 
+}
 .redCounter {
   color: red;
 }
